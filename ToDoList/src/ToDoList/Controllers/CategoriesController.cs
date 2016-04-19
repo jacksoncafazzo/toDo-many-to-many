@@ -18,6 +18,7 @@ namespace ToDoList.Controllers
         // GET: Categories
         public IActionResult Index()
         {
+            //ViewBag.CategoryItem = _context.CategoriesItems.ToList();
             return View(_context.Categories.ToList());
         }
 

@@ -18,8 +18,8 @@ namespace ToDoList.Controllers
         // GET: Items
         public IActionResult Index()
         {
-            var toDoListDbContext = _context.Items.Include(i => i.Category);
-            return View(toDoListDbContext.ToList());
+            ViewBag.Categories = _context.Categories.ToList();
+            return View(_context.Items.ToList());
         }
 
         // GET: Items/Details/5
@@ -42,7 +42,7 @@ namespace ToDoList.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Name");
+            ViewBag.Categories = new SelectList(_context.Categories, "Categories", "Name");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace ToDoList.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Name", item.CategoryId);
+            ViewBag.Categories = new SelectList(_context.Categories, "Categories", "Name");
             return View(item);
         }
 
@@ -73,7 +73,7 @@ namespace ToDoList.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
+            //ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
             return View(item);
         }
 
@@ -88,7 +88,7 @@ namespace ToDoList.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
+            //ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
             return View(item);
         }
 

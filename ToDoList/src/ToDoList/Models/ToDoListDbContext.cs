@@ -10,6 +10,12 @@ namespace ToDoList.Models
     {
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CategoryItem>().HasKey(x => new { x.CategoryId, x.ItemId });
+
+            
+
+        }
     }
 }
