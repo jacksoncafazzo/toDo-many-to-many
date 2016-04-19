@@ -56,7 +56,7 @@ namespace ToDoList.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", item.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Name", item.CategoryId);
             return View(item);
         }
 
@@ -73,7 +73,7 @@ namespace ToDoList.Controllers
             {
                 return HttpNotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
             return View(item);
         }
 
@@ -88,7 +88,7 @@ namespace ToDoList.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Category", item.CategoryId);
             return View(item);
         }
 
@@ -117,6 +117,15 @@ namespace ToDoList.Controllers
         {
             Item item = _context.Items.Single(m => m.ItemId == id);
             _context.Items.Remove(item);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Done(int id)
+        {
+            var thisItem = _context.Items.FirstOrDefault(x => x.ItemId == id);
+            thisItem.Done = !thisItem.Done;
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

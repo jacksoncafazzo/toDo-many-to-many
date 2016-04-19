@@ -31,6 +31,14 @@
             <a asp-action="Details" asp-route-id="@item.ItemId">Details</a> |
             <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
         </td>
+        <td>
+            @using (@Html.BeginForm("Done", "Items", new { id = item.ItemId }))
+                {
+                @Html.HiddenFor(modelItem => item.ItemId)
+
+                @Html.CheckBoxFor(modelItem => item.Done, new { onclick = "this.form.submit();" })
+            }
+        </td>
     </tr>
 }
 </table>

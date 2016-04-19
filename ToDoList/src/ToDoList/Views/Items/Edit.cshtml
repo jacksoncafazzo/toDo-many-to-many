@@ -6,33 +6,16 @@
 
 <h2>Edit</h2>
 
-<form asp-action="Edit">
-    <div class="form-horizontal">
-        <h4>Item</h4>
-        <hr />
-        <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="ItemId" />
-        <div class="form-group">
-            <label asp-for="CategoryId" class="control-label col-md-2">CategoryId</label>
-            <div class="col-md-10">
-                <select asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-</form>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Description)
+    @Html.EditorFor(model => model.Description)
+
+    @Html.LabelFor(model => model.CategoryId)
+    @Html.DropDownList("CategoryId")
+
+    <input type="submit" value="Create" class="btn btn-default" />
+}
 
 <div>
     <a asp-action="Index">Back to List</a>
